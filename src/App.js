@@ -8,7 +8,7 @@ import ListItemProduct from "./components/ListItemProduct";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { AddCircle } from "@mui/icons-material";
-import AddProductDialog from "./components/AddProductDialog";
+import AddProductsDialog from "./components/AddProductDialog";
 
 const BASE_API_URL = `https://fakestoreapi.com`;
 
@@ -46,14 +46,14 @@ function App() {
     setIsDialogOpen(false);
   };
 
-  const handleDeleteProduct = (userId, idx) => {
+  const handleDeleteProduct = (productId, idx) => {
     async function delProduct() {
       await axios
-        .delete(`${BASE_API_URL}/products/${userId}`)
+        .delete(`${BASE_API_URL}/products/${productId}`)
         .then((res) => {
-          console.log(userId);
+          console.log(productId);
           console.log(idx);
-          let arr = users;
+          let arr = products;
           if (idx !== -1) {
             arr.splice(idx, 1);
           }
@@ -89,13 +89,28 @@ function App() {
                 onDelete={() => handleDeleteProduct(d.id, idx)}
               />
             ))}
+            {newProducts.map((d) => (
+              <ListItemProduct
+                key={d.id}
+                image={d.image}
+                primaryText={d.title}
+                secondaryText={`Description: ${d.description}`}
+              />
+            ))}
           </List>
           
         </Paper>
 
       </div>
 
-      {/* AddItem */}
+      {isDialogOpen && (
+        <AddProductsDialog
+          open={isDialogOpen}
+          onClose={closeDialog}
+          product={newProducts}
+          setProduct={setNewProducts}
+        />
+      )}
       
     </div>
   );

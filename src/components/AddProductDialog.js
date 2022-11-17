@@ -60,4 +60,4 @@ function AddProductsDialog({ open, onClose, product, setProduct }) {
   );
 }
 
-export default AddProductDialog;
+export default AddProductsDialog;
