@@ -45,7 +45,27 @@ function App() {
     setIsDialogOpen(false);
   };
 
-  // Delete Hanlder
+  const handleDeleteUser = (userId, idx) => {
+    async function delUser() {
+      await axios
+        .delete(`${BASE_API_URL}/products/${userId}`)
+        .then((res) => {
+          console.log(userId);
+          console.log(idx);
+          let arr = users;
+          if (idx !== -1) {
+            arr.splice(idx, 1);
+          }
+          setUsers([...arr]);
+        })
+        .catch((error) => {
+          console.log(error);
+          window.alert(error);
+        });
+    }
+
+    delUser();
+  };
 
   return (
     <div className="App">
@@ -65,6 +85,7 @@ function App() {
                 image={d.image}
                 primaryText={`${d.title} || Rating: ${d.rating.rate}`}
                 secondaryText={`Description: ${d.description}`}
+                onDelete={() => handleDeleteUser(d.id, idx)}
               />
             ))}
           </List>
