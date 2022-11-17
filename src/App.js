@@ -24,7 +24,28 @@ function App() {
     setIsDialogOpen(false);
   };
 
-  // Delete Hanlder
+  const handleDeleteUser = (userId, idx) => {
+    async function delUser() {
+      await axios
+        .delete(`${BASE_API_URL}/products/${userId}`)
+        .then((res) => {
+          console.log(userId);
+          console.log(idx);
+          let arr = users;
+          if (idx !== -1) {
+            arr.splice(idx, 1);
+          }
+          setUsers([...arr]);
+        })
+        .catch((error) => {
+          console.log(error);
+          window.alert(error);
+        });
+    }
+
+    delUser();
+  };
+
 
   return (
     <div className="App">
@@ -35,8 +56,29 @@ function App() {
             <AddCircle />
           </IconButton>
         </div>
-        
-        {/* List Item */}
+        <Paper elevation={2} style={{ maxHeight: "auto", overflow: "auto" }}>
+          <List>
+            {users.map((d, idx) => (
+              <ListItemUser
+                key={d.id}
+                image={d.image}
+                primaryText={`${d.title} || Rating: ${d.rating.rate}`}
+                secondaryText={`Description: ${d.description}`}
+                onDelete={() => handleDeleteUser(d.id, idx)}
+              />
+            ))}
+            {newUsers.map((d) => (
+              <ListItemUser
+                key={d.id}
+                image={d.image}
+                primaryText={d.title}
+                secondaryText={`Description: ${d.description}`}
+              />
+            ))}
+          </List>
+          
+          
+        </Paper>
 
       </div>
 
