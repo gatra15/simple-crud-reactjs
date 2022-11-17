@@ -13,7 +13,7 @@ const BASE_API_URL = `https://fakestoreapi.com`;
 
 function App() {
   const [products, setProducts] = useState([]);
-  // UseState Add Product
+  const [newProducts, setNewProducts] = useState([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
  
   useEffect(() => {
