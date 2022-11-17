@@ -8,6 +8,7 @@ import ListItemProduct from "./components/ListItemProduct";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { AddCircle } from "@mui/icons-material";
+import AddProductDialog from "./components/AddProductDialog";
 
 const BASE_API_URL = `https://fakestoreapi.com`;
 
