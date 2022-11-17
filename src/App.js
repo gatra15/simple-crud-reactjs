@@ -45,8 +45,8 @@ function App() {
     setIsDialogOpen(false);
   };
 
-  const handleDeleteUser = (userId, idx) => {
-    async function delUser() {
+  const handleDeleteProduct = (userId, idx) => {
+    async function delProduct() {
       await axios
         .delete(`${BASE_API_URL}/products/${userId}`)
         .then((res) => {
@@ -56,7 +56,7 @@ function App() {
           if (idx !== -1) {
             arr.splice(idx, 1);
           }
-          setUsers([...arr]);
+          setProducts([...arr]);
         })
         .catch((error) => {
           console.log(error);
@@ -64,7 +64,7 @@ function App() {
         });
     }
 
-    delUser();
+    delProduct();
   };
 
   return (
@@ -85,7 +85,7 @@ function App() {
                 image={d.image}
                 primaryText={`${d.title} || Rating: ${d.rating.rate}`}
                 secondaryText={`Description: ${d.description}`}
-                onDelete={() => handleDeleteUser(d.id, idx)}
+                onDelete={() => handleDeleteProduct(d.id, idx)}
               />
             ))}
           </List>
